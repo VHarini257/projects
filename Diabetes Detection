@@ -1,0 +1,22 @@
+import pandas as  pd
+input_data = pd.read_excel('input_diabetes.xlsx')
+input_data.head()
+input_data.columns
+x=input_data.drop('diabetes' , axis=1)
+x.head()
+y = input_data['diabetes']
+from sklearn.model_selection import train_test_split
+x_train, x_test, y_train, y_test = train_test_split( x,y,test_size=0.3)
+from sklearn import tree 
+ctree = tree.DecisionTreeClassifier()
+ctree.fit(x_train, y_train)
+p1 = x_test.iloc[[153]]
+y_test_pred = ctree.predict(x_test)
+y_test_pred 
+comp_df = pd.DataFrame()
+comp_df['Actual'] = y_test
+comp_df['Prediction'] = y_test_pred
+comp_df 
+from sklearn import metrics
+metrics.accuracy_score(y_test, y_test_pred)*100
+accuracy score: 65.80086580086581 
