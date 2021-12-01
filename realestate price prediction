@@ -1,0 +1,20 @@
+import pandas as pd
+input_data = pd.read_excel('income_data.xlsx')
+input_data.columns
+x=input_data[['income', 'plot_size']]
+x.head()
+y=input_data['owner']
+y
+from sklearn.model_selection import train_test_split
+x_train, x_test, y_train, y_test = train_test_split(x,y, test_size=.3)
+from sklearn import tree
+ctree = tree.DecisionTreeClassifier(max_depth=2)
+ctree.fit(x_train, y_train)
+y_test_pred = ctree.predict(x_test)
+comp_df = x_test.copy()
+comp_df['pred'] = y_test_pred
+comp_df['actual'] = y_test
+comp_df
+from sklearn import metrics
+metrics.accuracy_score(y_test, y_test_pred )
+0.625 
